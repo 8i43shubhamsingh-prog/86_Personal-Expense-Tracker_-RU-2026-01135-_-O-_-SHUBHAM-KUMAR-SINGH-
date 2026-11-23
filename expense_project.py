@@ -8,7 +8,7 @@ FIELDNAMES = ["Date", "Category", "Description", "Amount"]
 
 
 def initialize_csv():
-    """Creates expenses.csv with headers if it does not exist."""
+   
     if not os.path.exists(FILENAME):
         with open(FILENAME, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.DictWriter(file, fieldnames=FIELDNAMES)
@@ -16,7 +16,7 @@ def initialize_csv():
 
 
 def load_expenses():
-    """Reads all records from expenses.csv into a list of dictionaries."""
+   
     initialize_csv()
     expenses = []
     with open(FILENAME, mode="r", newline="", encoding="utf-8") as file:
@@ -28,7 +28,6 @@ def load_expenses():
 
 
 def validate_date(date_str):
-    """Validates YYYY-MM-DD date format."""
     try:
         datetime.strptime(date_str, "%Y-%m-%d")
         return True
@@ -37,7 +36,6 @@ def validate_date(date_str):
 
 
 def validate_amount(amount_str):
-    """Validates that amount is a positive number (>= 1 or > 0)."""
     try:
         amount = float(amount_str)
         if amount <= 0:
@@ -48,11 +46,10 @@ def validate_amount(amount_str):
 
 
 def add_expense():
-    """Prompts for expense details, validates them, and saves to expenses.csv."""
     print("\n--- Add New Expense ---")
     first_input = input("Enter Date (YYYY-MM-DD): ").strip()
 
-    # Supports both comma-separated single line (Test Cases 1-3) and separate prompts
+  
     if "," in first_input:
         parts = [item.strip() for item in first_input.split(",")]
         if len(parts) != 4:
@@ -101,7 +98,7 @@ def add_expense():
 
 
 def view_all_records():
-    """Displays all records from expenses.csv."""
+    
     expenses = load_expenses()
     if not expenses:
         print("\nNo records found.")
@@ -114,7 +111,6 @@ def view_all_records():
 
 
 def view_category_summary():
-    """Displays category-wise summary using Pandas groupby()."""
     initialize_csv()
     df = pd.read_csv(FILENAME)
 
@@ -137,7 +133,6 @@ def view_category_summary():
 
 
 def view_monthly_summary():
-    """Displays monthly summary using Pandas groupby()."""
     initialize_csv()
     df = pd.read_csv(FILENAME)
 
